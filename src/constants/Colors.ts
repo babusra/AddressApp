@@ -4,5 +4,6 @@ export const Colors = {
   white:'#FFFFFF',
   grey:'#C2BBCF',
   primaryGrey:"#EEF0F4",
-  secondaryGrey:"#E6E9EE"
+  secondaryGrey:"#E6E9EE",
+  buttonGreen:"#019693"
 };
