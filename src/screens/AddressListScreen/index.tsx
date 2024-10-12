@@ -1,8 +1,12 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {
+  View,
+} from 'react-native';
 import Header from '../../components/Header';
-import AddressItem from '../../components/AddressItem';
 import AddressList from '../../components/AddressList';
+import {moderateScale, verticalScale} from '../../constants/Dimensions';
+import {Colors} from '../../constants/Colors';
+import CustomButton from '../../components/CustomButton';
 
 const AddressListScreen: React.FC = () => {
   const data = [
@@ -22,9 +26,23 @@ const AddressListScreen: React.FC = () => {
     },
   ];
   return (
-    <View>
+    <View
+      style={{gap: moderateScale(30), backgroundColor: Colors.white, flex: 1}}>
       <Header />
-      <AddressList addressData={data}/>
+
+      <AddressList addressData={data} />
+
+      <CustomButton
+        title={'Yeni Adres Ekle'}
+        containerStyle={{
+          borderTopWidth: 1,
+          borderTopColor: Colors.primaryGrey,
+          position: 'absolute',
+          bottom: verticalScale(30),
+          left: 0,
+          right: 0,
+        }}
+      />
     </View>
   );
 };
