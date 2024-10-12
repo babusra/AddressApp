@@ -17,16 +17,17 @@ const AddressItem: React.FC<Props> = ({address}) => {
     <View
       style={{
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         paddingBottom: moderateScale(20),
         paddingTop: moderateScale(5),
+        alignItems:'center'
       }}>
       <Icon name="location" size={25} />
       <View>
         <Text>{address?.addressTitle}</Text>
-        <Text>{address?.addressDetail}</Text>
+        <Text numberOfLines={1}>{address?.addressDetail}</Text>
       </View>
-      <View>
+      <View style={{alignSelf: 'center'}}>
         <Text>
           {address?.districtName} / {address?.cityName}
         </Text>
