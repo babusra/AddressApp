@@ -28,6 +28,8 @@ const CustomButton: React.FC<Props> = ({
           padding: 10,
           alignItems: 'center',
           elevation: 5, // for Android
+          paddingBottom:verticalScale(40)
+          
         },
       ]}>
       <TouchableOpacity

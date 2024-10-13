@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {navigation} from '../navigation/rootNavigation';
 
 interface Props {
-  onPressBack: () => void;
+  onPressBack?: () => void;
 }
 const Header: React.FC<Props> = ({onPressBack}) => {
   return (
