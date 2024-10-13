@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, verticalScale} from '../../constants/Dimensions';
 import {Colors} from '../../constants/Colors';
+import {DefaultTheme} from 'react-native-paper';
 
 export const styles = StyleSheet.create({
   container: {gap: moderateScale(30), backgroundColor: Colors.white, flex: 1},
@@ -12,7 +13,6 @@ export const styles = StyleSheet.create({
   input: {
     backgroundColor: '#F9F9FB',
     fontSize: 16,
-    marginBottom: 20,
     borderWidth: 1,
     borderColor: '#E6E9EE',
     height: verticalScale(60),
@@ -26,8 +26,16 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: Colors.primaryGrey,
     position: 'absolute',
-    bottom: verticalScale(30),
+    bottom: 0,
     left: 0,
     right: 0,
+  },
+  errorText: {
+    color: DefaultTheme.colors.error,
+    textAlign: 'right',
+    padding: 5,
+    paddingBottom: 20,
+    fontStyle: 'italic',
+    fontWeight: '600',
   },
 });
