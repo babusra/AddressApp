@@ -20,20 +20,33 @@ const AddressItem: React.FC<Props> = ({address}) => {
         justifyContent: 'space-between',
         paddingBottom: moderateScale(20),
         paddingTop: moderateScale(5),
-        alignItems:'center'
+        alignItems: 'center',
       }}>
-      <Icon name="location" size={25} />
+      <View
+        style={{
+          backgroundColor: '#F1EEF7',
+          padding: 10,
+          borderRadius: 50,
+          width: 45,
+          height: 45,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Icon name="location" size={25} color={'#450D87'} />
+      </View>
       <View>
-        <Text>{address?.addressTitle}</Text>
-        <Text numberOfLines={1}>{address?.addressDetail}</Text>
+        <Text style={{fontWeight: 500, fontSize: 14, lineHeight: 18}}>
+          {address?.addressTitle}
+        </Text>
+        <Text style={{color:"#6F6085"}} numberOfLines={1}>{address?.addressDetail}</Text>
       </View>
       <View style={{alignSelf: 'center'}}>
-        <Text>
+        <Text style={{color:"#3D2852"}}>
           {address?.districtName} / {address?.cityName}
         </Text>
       </View>
       <TouchableOpacity>
-        <Icon name="chevron-right" size={25} />
+        <Icon name="chevron-small-right" size={25} />
       </TouchableOpacity>
     </View>
   );

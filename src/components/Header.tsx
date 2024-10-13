@@ -10,8 +10,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {moderateScale} from '../constants/Dimensions';
 import {Colors} from '../constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {navigation} from '../navigation/rootNavigation';
 
-const Header: React.FC = () => {
+interface Props {
+  onPressBack: () => void;
+}
+const Header: React.FC<Props> = ({onPressBack}) => {
   return (
     <LinearGradient
       colors={[Colors.gradientFirst, Colors.gradientSecond]}
@@ -24,7 +28,9 @@ const Header: React.FC = () => {
             alignItems: 'center',
             paddingVertical: moderateScale(20),
           }}>
-          <TouchableOpacity style={{position: 'absolute', left: 0}}>
+          <TouchableOpacity
+            onPress={onPressBack}
+            style={{position: 'absolute', left: 0}}>
             <Icon name="left" size={18} color={Colors.grey} />
           </TouchableOpacity>
           <Text
