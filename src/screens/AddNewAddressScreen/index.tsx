@@ -1,59 +1,30 @@
-import React, {useEffect, useReducer, useState} from 'react';
-import {View} from 'react-native';
+import React from 'react';
+import {Text, View} from 'react-native';
 import Header from '../../components/Header';
-import {moderateScale} from '../../constants/Dimensions';
 import {Colors} from '../../constants/Colors';
 import CustomButton from '../../components/CustomButton';
 import {navigation} from '../../navigation/rootNavigation';
 import {TextInput} from 'react-native-paper';
 import CustomBottomSheet from '../../components/CustomBottomSheet';
 import {styles} from './styles';
-
-interface FormState {
-  addressTitle: string;
-  city: string;
-  details: string;
-}
-
-type FormAction =
-  | {type: 'SET_ADDRESS_TITLE'; payload: string}
-  | {type: 'SET_CITY'; payload: string}
-  | {type: 'SET_DETAILS'; payload: string}
-  | {type: 'RESET'};
-
-const formReducer = (state: FormState, action: FormAction): FormState => {
-  switch (action.type) {
-    case 'SET_ADDRESS_TITLE':
-      return {...state, addressTitle: action.payload};
-    case 'SET_CITY':
-      return {...state, city: action.payload};
-    case 'SET_DETAILS':
-      return {...state, details: action.payload};
-    case 'RESET':
-      return {addressTitle: '', city: '', details: ''};
-    default:
-      return state;
-  }
-};
+import SuccessBottomSheet from '../../contents/SuccessBottomSheet';
+import CitiesBottomSheet from '../../contents/CitiesBottomSheet';
+import UseAddressFormManager from './UseAddressFormManager';
 
 const AddNewAddressScreen: React.FC = () => {
-  const [state, dispatch] = useReducer(formReducer, {
-    addressTitle: '',
-    city: '',
-    details: '',
-  });
-
-  const [visible, setVisible] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  useEffect(() => {
-    const isFormValid =
-      state.addressTitle.trim() !== '' &&
-      state.city.trim() !== '' &&
-      state.details.trim() !== '';
-
-    setIsButtonDisabled(!isFormValid);
-  }, [state]);
+  const {
+    data,
+    state,
+    onSave,
+    dispatch,
+    errors,
+    visible,
+    setVisible,
+    visible2,
+    setVisible2,
+    isButtonDisabled,
+    setErrors,
+  } = UseAddressFormManager();
 
   return (
     <View style={styles.container}>
@@ -64,20 +35,42 @@ const AddNewAddressScreen: React.FC = () => {
       />
       <View style={styles.formContainer}>
         <TextInput
-          label="Adres başlığı (Ev, işyeri vs.)"
+          label="Adres başlığı (Ev, işyeri vs.) alanı"
           value={state.addressTitle}
-          onChangeText={text =>
-            dispatch({type: 'SET_ADDRESS_TITLE', payload: text})
-          }
-          style={styles.input}
+          onChangeText={text => {
+            dispatch({type: 'SET_ADDRESS_TITLE', payload: text});
+            setErrors({
+              ...errors,
+              addressTitle: text === '' ? true : false,
+            });
+          }}
+          error={errors.addressTitle}
+          onBlur={() => {
+            setErrors({
+              ...errors,
+              addressTitle: state.addressTitle.trim() === '' ? true : false,
+            });
+          }}
+          style={{...styles.input, marginBottom: errors.addressTitle ? 0 : 20}}
           underlineColor={Colors.underLine}
         />
+        {errors.addressTitle ? (
+          <Text style={styles.errorText}>
+            Adres başlığı alanı boş bırakılamaz
+          </Text>
+        ) : null}
+
         <TextInput
           label="İl"
-          value={state.city}
-          onChangeText={text => dispatch({type: 'SET_CITY', payload: text})}
-          style={styles.input}
-          underlineColor={Colors.underLine}
+          value={state.cityName}
+          editable={false}
+          onChangeText={text => {
+            dispatch({type: 'SET_CITY', payload: text});
+            setErrors({
+              ...errors,
+              cityName: text === '' ? true : false,
+            });
+          }}
           right={
             <TextInput.Icon
               icon="chevron-down"
@@ -85,37 +78,93 @@ const AddNewAddressScreen: React.FC = () => {
               onPress={() => setVisible(true)}
             />
           }
+          error={errors.cityName}
+          onBlur={() => {
+            setErrors({
+              ...errors,
+              cityName: state.cityName.trim() === '' ? true : false,
+            });
+          }}
+          style={{...styles.input, marginBottom: 20}}
+          underlineColor={Colors.underLine}
         />
+        {errors.cityName ? (
+          <Text style={styles.errorText}>İl alanı boş bırakılamaz</Text>
+        ) : null}
+        <TextInput
+          label="İlçe"
+          value={state.districtName}
+          onChangeText={text => {
+            dispatch({type: 'SET_DISTRICT', payload: text});
+            setErrors({
+              ...errors,
+              districtName: text === '' ? true : false,
+            });
+          }}
+          error={errors.districtName}
+          onBlur={() => {
+            setErrors({
+              ...errors,
+              districtName: state.districtName.trim() === '' ? true : false,
+            });
+          }}
+          style={{...styles.input, marginBottom: errors.districtName ? 0 : 20}}
+          underlineColor={Colors.underLine}
+        />
+        {errors.districtName ? (
+          <Text style={styles.errorText}>İlçe alanı boş bırakılamaz</Text>
+        ) : null}
 
         <CustomBottomSheet
           visible={visible}
           toggleBottomNavigationView={() => setVisible(!visible)}
           content={
-            <View
-              style={{
-                backgroundColor: Colors.white,
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
-                padding: moderateScale(20),
-              }}></View>
+            <CitiesBottomSheet
+              data={data}
+              onPress={item => {
+                dispatch({type: 'SET_CITY', payload: item.cityName});
+                setVisible(false);
+              }}
+            />
           }
         />
 
         <TextInput
           label="Adres Detayı"
-          value={state.details}
-          onChangeText={text => dispatch({type: 'SET_DETAILS', payload: text})}
-          style={styles.input}
+          value={state.addressDetail}
+          onChangeText={text => {
+            dispatch({type: 'SET_DETAILS', payload: text});
+            setErrors({
+              ...errors,
+              addressDetail: text === '' ? true : false,
+            });
+          }}
+          error={errors.addressDetail}
+          onBlur={() => {
+            setErrors({
+              ...errors,
+              addressDetail: state.addressDetail.trim() === '' ? true : false,
+            });
+          }}
+          style={{...styles.input, marginBottom: errors.addressDetail ? 0 : 20}}
           underlineColor={Colors.underLine}
         />
+        {errors.addressDetail ? (
+          <Text style={styles.errorText}>
+            Adres detayı alanı boş bırakılamaz
+          </Text>
+        ) : null}
       </View>
       <CustomButton
         title={'Kaydet'}
         containerStyle={styles.buttonCont}
-        onPress={() => {
-          console.log('***', state);
-        }}
+        onPress={onSave}
         disabled={isButtonDisabled}
+      />
+      <CustomBottomSheet
+        visible={visible2}
+        toggleBottomNavigationView={() => setVisible2(!visible2)}
+        content={<SuccessBottomSheet />}
       />
     </View>
   );
