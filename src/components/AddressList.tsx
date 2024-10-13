@@ -6,16 +6,15 @@ import {
   moderateScale,
   verticalScale,
 } from '../constants/Dimensions';
-import { Colors } from '../constants/Colors';
+import {Colors} from '../constants/Colors';
+import {ItemSeparator} from './ItemSeparator';
 
 interface Props {
   addressData: any[];
 }
 
 const AddressList: React.FC<Props> = ({addressData}) => {
-  const ItemSeparator = () => {
-    return <View style={{height: 1, backgroundColor: '#F5F6F9'}} />;
-  };
+ 
   return (
     <View style={{paddingHorizontal: horizontalScale(16)}}>
       <Text style={{paddingBottom: verticalScale(15)}}>Kayıtlı Adresler</Text>
@@ -28,7 +27,9 @@ const AddressList: React.FC<Props> = ({addressData}) => {
           gap: moderateScale(10),
           padding: moderateScale(15),
           borderRadius: 8,
+          
         }}
+        ListEmptyComponent={<Text>Kayıt yok</Text>}
         renderItem={({item}) => {
           return (
             <AddressItem

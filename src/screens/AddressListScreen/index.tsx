@@ -1,38 +1,33 @@
-import React from 'react';
-import {
-  View,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 import Header from '../../components/Header';
 import AddressList from '../../components/AddressList';
-import {moderateScale, verticalScale} from '../../constants/Dimensions';
+import {moderateScale} from '../../constants/Dimensions';
 import {Colors} from '../../constants/Colors';
 import CustomButton from '../../components/CustomButton';
-import { navigation } from '../../navigation/rootNavigation';
-
+import {navigation} from '../../navigation/rootNavigation';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchAddressList} from '../../reduxToolkit/features/addressSlice';
+import {useFocusEffect} from '@react-navigation/native';
 const AddressListScreen: React.FC = () => {
-  const data = [
-    {
-      cityName: 'İstanbul',
-      districtName: 'Kağıthane',
-      addressDetail: 'Çelebi Cad',
-      addressTitle: 'Ev',
-      id: '1',
-    },
-    {
-      cityName: 'İstanbul',
-      districtName: 'Kağıthane',
-      addressDetail: 'Çelebi Cad',
-      addressTitle: 'Ev',
-      id: '2',
-    },
-  
-  ];
+  const dispatch = useDispatch();
+  const {addresses, loading} = useSelector((state: any) => state.address);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchAddressList());
+    }, []),
+  );
   return (
     <View
       style={{gap: moderateScale(30), backgroundColor: Colors.white, flex: 1}}>
       <Header />
 
-      <AddressList addressData={data} />
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <AddressList addressData={addresses} />
+      )}
 
       <CustomButton
         title={'Yeni Adres Ekle'}
@@ -40,14 +35,13 @@ const AddressListScreen: React.FC = () => {
           borderTopWidth: 1,
           borderTopColor: Colors.primaryGrey,
           position: 'absolute',
-          bottom: verticalScale(30),
+          bottom: 0,
           left: 0,
           right: 0,
         }}
-        onPress={ ()=> {
-          navigation.navigate('AddNewAddressScreen')
-          
-      }}
+        onPress={() => {
+          navigation.navigate('AddNewAddressScreen');
+        }}
       />
     </View>
   );
