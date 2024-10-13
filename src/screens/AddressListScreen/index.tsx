@@ -7,6 +7,7 @@ import AddressList from '../../components/AddressList';
 import {moderateScale, verticalScale} from '../../constants/Dimensions';
 import {Colors} from '../../constants/Colors';
 import CustomButton from '../../components/CustomButton';
+import { navigation } from '../../navigation/rootNavigation';
 
 const AddressListScreen: React.FC = () => {
   const data = [
@@ -24,6 +25,7 @@ const AddressListScreen: React.FC = () => {
       addressTitle: 'Ev',
       id: '2',
     },
+  
   ];
   return (
     <View
@@ -42,6 +44,10 @@ const AddressListScreen: React.FC = () => {
           left: 0,
           right: 0,
         }}
+        onPress={ ()=> {
+          navigation.navigate('AddNewAddressScreen')
+          
+      }}
       />
     </View>
   );
