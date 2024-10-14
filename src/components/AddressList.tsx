@@ -10,15 +10,16 @@ import {Colors} from '../constants/Colors';
 import {ItemSeparator} from './ItemSeparator';
 import {useTranslation} from 'react-i18next';
 import {SwipeListView} from 'react-native-swipe-list-view';
+import {IAddressType} from '../types/IAddressType';
 
 interface Props {
-  addressData: any[];
-  onDelete?: any;
+  addressData: IAddressType[];
+  onDelete: (id: string) => void;
 }
 
 const AddressList: React.FC<Props> = ({addressData, onDelete}) => {
   const {t} = useTranslation();
-  const renderHiddenItem = (data: {item: {id: any}}, rowMap: any) => (
+  const renderHiddenItem = (data: {item: IAddressType}) => (
     <View style={styles.rowBack}>
       <TouchableOpacity
         style={[styles.backRightBtn, styles.backRightBtnRight]}

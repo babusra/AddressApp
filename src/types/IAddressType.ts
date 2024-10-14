@@ -1,4 +1,5 @@
 export interface IAddressType {
+    id:string,
     addressTitle: string;
     cityName: string;
     districtName: string;
