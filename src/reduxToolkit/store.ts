@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import addressReducer from './features/addressSlice';
+import languageReducer from './features/languageSlice';
 
 const store = configureStore({
   reducer: {
     address: addressReducer,
+    language: languageReducer,
   },
 });
 
