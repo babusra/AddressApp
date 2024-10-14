@@ -3,14 +3,16 @@ import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {moderateScale, height} from '../constants/Dimensions';
 import {Colors} from '../constants/Colors';
+import {useTranslation} from 'react-i18next';
 
 const SuccessBottomSheet: React.FC = () => {
+  const {t} = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         <Icon name="checkcircleo" size={25} color={Colors.buttonGreen} />
       </View>
-      <Text style={styles.text}>Adresin başarıyla kaydedildi!</Text>
+      <Text style={styles.text}>{t('successAddressDesc')}</Text>
     </View>
   );
 };

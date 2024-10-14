@@ -2,5 +2,16 @@
     "myAddresses":"My Addresses",
     "yourAddressInformation":"Your Address Information",
     "registeredAddresses":"Registered Addresses",
-    "addNewAddress":"Add New Address"
+    "addNewAddress":"Add New Address",
+    "addressTitle":"Address Title (Home, workplace etc.)",
+    "city":"City",
+    "district":"District",
+    "addressDetail":"Address Detail",
+    "save":"Save",
+    "successAddressDesc":"Your address has been saved successfully!",
+    "errorDes":"field cannot be left blank"
+
+
+
+
 }

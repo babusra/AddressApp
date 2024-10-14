@@ -16,7 +16,13 @@ import {
 import {Colors} from '../constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {useTranslation} from 'react-i18next';
-import {changeLanguage} from 'i18next';
+import {
+  setIsEnabled,
+  setLanguage,
+} from '../reduxToolkit/features/languageSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../common/localization/i18n';
+import {RootState} from '../reduxToolkit/store';
 
 interface Props {
   onPressBack?: () => void;
@@ -24,10 +30,17 @@ interface Props {
 const Header: React.FC<Props> = ({onPressBack}) => {
   const {t} = useTranslation();
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const dispatch = useDispatch();
 
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {isEnabled, language} = useSelector(
+    (state: RootState) => state.language,
+  );
+  const toggleSwitch = () => dispatch(setIsEnabled(!isEnabled));
 
+  const changeLanguage = (lang: string) => {
+    dispatch(setLanguage(lang));
+    i18n.changeLanguage(lang);
+  };
   useEffect(() => {
     if (isEnabled) {
       changeLanguage('en');

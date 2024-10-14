@@ -24,6 +24,7 @@ const AddNewAddressScreen: React.FC = () => {
     setVisible2,
     isButtonDisabled,
     setErrors,
+    t,
   } = UseAddressFormManager();
 
   return (
@@ -35,7 +36,7 @@ const AddNewAddressScreen: React.FC = () => {
       />
       <View style={styles.formContainer}>
         <TextInput
-          label="Adres başlığı (Ev, işyeri vs.) alanı"
+          label={t('addressTitle')}
           value={state.addressTitle}
           onChangeText={text => {
             dispatch({type: 'SET_ADDRESS_TITLE', payload: text});
@@ -56,12 +57,13 @@ const AddNewAddressScreen: React.FC = () => {
         />
         {errors.addressTitle ? (
           <Text style={styles.errorText}>
-            Adres başlığı alanı boş bırakılamaz
+            {t('addressTitle')}{' '}
+            {t('errorDes')}
           </Text>
         ) : null}
 
         <TextInput
-          label="İl"
+          label={t('city')}
           value={state.cityName}
           editable={false}
           onChangeText={text => {
@@ -89,10 +91,13 @@ const AddNewAddressScreen: React.FC = () => {
           underlineColor={Colors.underLine}
         />
         {errors.cityName ? (
-          <Text style={styles.errorText}>İl alanı boş bırakılamaz</Text>
+          <Text style={styles.errorText}>
+            {t('city')}
+            {t('errorDes')}
+          </Text>
         ) : null}
         <TextInput
-          label="İlçe"
+          label={t('district')}
           value={state.districtName}
           onChangeText={text => {
             dispatch({type: 'SET_DISTRICT', payload: text});
@@ -112,7 +117,10 @@ const AddNewAddressScreen: React.FC = () => {
           underlineColor={Colors.underLine}
         />
         {errors.districtName ? (
-          <Text style={styles.errorText}>İlçe alanı boş bırakılamaz</Text>
+          <Text style={styles.errorText}>
+            {t('district')}{' '}
+            {t('errorDes')}
+          </Text>
         ) : null}
 
         <CustomBottomSheet
@@ -130,7 +138,7 @@ const AddNewAddressScreen: React.FC = () => {
         />
 
         <TextInput
-          label="Adres Detayı"
+          label={t('addressDetail')}
           value={state.addressDetail}
           onChangeText={text => {
             dispatch({type: 'SET_DETAILS', payload: text});
@@ -151,12 +159,13 @@ const AddNewAddressScreen: React.FC = () => {
         />
         {errors.addressDetail ? (
           <Text style={styles.errorText}>
-            Adres detayı alanı boş bırakılamaz
+              {t('addressDetail')}{' '}
+            {t('errorDes')}
           </Text>
         ) : null}
       </View>
       <CustomButton
-        title={'Kaydet'}
+        title={t('save')}
         containerStyle={styles.buttonCont}
         onPress={onSave}
         disabled={isButtonDisabled}

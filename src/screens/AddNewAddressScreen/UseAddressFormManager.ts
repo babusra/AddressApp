@@ -5,6 +5,7 @@ import {getCities} from '../../services/api/cityApi';
 import useFetch from '../../services/hooks/useFetch';
 import {IAddressType, FormAction} from '../../types/IAddressType';
 import {isFormValid} from '../../utils/FormValidation';
+import {useTranslation} from 'react-i18next';
 
 const UseAddressFormManager = () => {
   const formReducer = (
@@ -31,6 +32,8 @@ const UseAddressFormManager = () => {
         return state;
     }
   };
+  const {t} = useTranslation();
+
 
   const [state, dispatch] = useReducer(formReducer, {
     addressTitle: '',
@@ -78,6 +81,7 @@ const UseAddressFormManager = () => {
     setVisible2,
     isButtonDisabled,
     setErrors,
+    t,
   };
 };
 

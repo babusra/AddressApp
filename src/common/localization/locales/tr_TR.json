@@ -2,5 +2,14 @@
     "myAddresses":"Adreslerim",
     "yourAddressInformation":"Adres Bilgilerin",
     "registeredAddresses":"Kayıtlı Adresler",
-    "addNewAddress":"Yeni Adres Ekle"
+    "addNewAddress":"Yeni Adres Ekle",
+    "addressTitle":"Adres başlığı (Ev, işyeri vs.)",
+    "city":"İl",
+    "district":"İlçe",
+    "addressDetail":"Adres Detayı",
+    "save":"Kaydet",
+    "successAddressDesc":"Adresin başarıyla kaydedildi!",
+    "errorDes":"alanı boş bırakılamaz"
+
+
 }
