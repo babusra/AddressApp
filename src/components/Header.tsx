@@ -32,9 +32,7 @@ const Header: React.FC<Props> = ({onPressBack}) => {
 
   const dispatch = useDispatch();
 
-  const {isEnabled, language} = useSelector(
-    (state: RootState) => state.language,
-  );
+  const {isEnabled} = useSelector((state: RootState) => state.language);
   const toggleSwitch = () => dispatch(setIsEnabled(!isEnabled));
 
   const changeLanguage = (lang: string) => {
@@ -70,17 +68,8 @@ const Header: React.FC<Props> = ({onPressBack}) => {
           />
           <Text style={styles.langText}>EN</Text>
         </View>
-
-        <Text
-          style={{
-            textAlign: 'center',
-            color: Colors.white,
-            fontSize: 20,
-            paddingVertical: 10,
-          }}>
-          {t('yourAddressInformation')}
-        </Text>
       </SafeAreaView>
+      <Text style={styles.subTitle}>{t('yourAddressInformation')}</Text>
     </LinearGradient>
   );
 };
@@ -101,7 +90,6 @@ const styles = StyleSheet.create({
   backButton: {position: 'absolute', left: 0},
   buttonText: {
     fontSize: 18,
-    fontFamily: 'Gill Sans',
     textAlign: 'center',
     margin: moderateScale(10),
     color: '#ffffff',
@@ -122,4 +110,11 @@ const styles = StyleSheet.create({
     gap: moderateScale(5),
   },
   langText: {color: Colors.white, fontWeight: '700'},
+  subTitle: {
+    fontSize: 20,
+    color: Colors.white,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: verticalScale(30),
+  },
 });
