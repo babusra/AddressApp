@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
   View,
@@ -10,12 +11,26 @@ import LinearGradient from 'react-native-linear-gradient';
 import {moderateScale} from '../constants/Dimensions';
 import {Colors} from '../constants/Colors';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {navigation} from '../navigation/rootNavigation';
+import {useTranslation} from 'react-i18next';
+import {changeLanguage} from 'i18next';
 
 interface Props {
   onPressBack?: () => void;
 }
 const Header: React.FC<Props> = ({onPressBack}) => {
+  const {t} = useTranslation();
+
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  useEffect(() => {
+    if (isEnabled) {
+      changeLanguage('en');
+    } else {
+      changeLanguage('tr');
+    }
+  }, [isEnabled]);
   return (
     <LinearGradient
       colors={[Colors.gradientFirst, Colors.gradientSecond]}
@@ -40,9 +55,28 @@ const Header: React.FC<Props> = ({onPressBack}) => {
               color: Colors.grey,
               fontSize: 16,
             }}>
-            Adreslerim
+            {t('myAddresses')}
           </Text>
         </View>
+        <View
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 80,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 5,
+          }}>
+          <Text style={{color: Colors.white, fontWeight: '700'}}>TR</Text>
+          <Switch
+            trackColor={{false: Colors.grey, true: Colors.buttonGrey}}
+            thumbColor={isEnabled ? Colors.primaryGrey : '#f4f3f4'}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+          <Text style={{color: Colors.white, fontWeight: '700'}}>EN</Text>
+        </View>
+
         <Text
           style={{
             textAlign: 'center',
@@ -50,7 +84,7 @@ const Header: React.FC<Props> = ({onPressBack}) => {
             fontSize: 20,
             paddingVertical: 10,
           }}>
-          Adres Bilgilerin
+          {t('yourAddressInformation')}
         </Text>
       </SafeAreaView>
     </LinearGradient>

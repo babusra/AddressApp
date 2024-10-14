@@ -9,7 +9,11 @@ import {navigation} from '../../navigation/rootNavigation';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAddressList} from '../../reduxToolkit/features/addressSlice';
 import {useFocusEffect} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+
 const AddressListScreen: React.FC = () => {
+  const {t} = useTranslation();
+
   const dispatch = useDispatch();
   const {addresses, loading} = useSelector((state: any) => state.address);
 
@@ -30,7 +34,7 @@ const AddressListScreen: React.FC = () => {
       )}
 
       <CustomButton
-        title={'Yeni Adres Ekle'}
+        title={t('addNewAddress')}
         containerStyle={{
           borderTopWidth: 1,
           borderTopColor: Colors.primaryGrey,

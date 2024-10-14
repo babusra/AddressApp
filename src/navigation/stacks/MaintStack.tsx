@@ -5,11 +5,19 @@ import AddNewAddressScreen from '../../screens/AddNewAddressScreen';
 const MaintStack = () => {
   const Stack = createNativeStackNavigator();
 
+  const SCREENS = {
+    AddressListScreen: 'AddressListScreen',
+    AddNewAddressScreen: 'AddNewAddressScreen',
+  };
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="AddressListScreen" component={AddressListScreen} />
       <Stack.Screen
-        name="AddNewAddressScreen"
+        name={SCREENS.AddressListScreen}
+        component={AddressListScreen}
+      />
+      <Stack.Screen
+        name={SCREENS.AddNewAddressScreen}
         component={AddNewAddressScreen}
       />
     </Stack.Navigator>

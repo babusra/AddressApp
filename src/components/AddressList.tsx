@@ -8,16 +8,20 @@ import {
 } from '../constants/Dimensions';
 import {Colors} from '../constants/Colors';
 import {ItemSeparator} from './ItemSeparator';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   addressData: any[];
 }
 
 const AddressList: React.FC<Props> = ({addressData}) => {
- 
+  const {t} = useTranslation();
+
   return (
     <View style={{paddingHorizontal: horizontalScale(16)}}>
-      <Text style={{paddingBottom: verticalScale(15)}}>Kayıtlı Adresler</Text>
+      <Text style={{paddingBottom: verticalScale(15)}}>
+        {t('registeredAddresses')}
+      </Text>
       <FlatList
         data={addressData}
         ItemSeparatorComponent={ItemSeparator}
@@ -27,7 +31,6 @@ const AddressList: React.FC<Props> = ({addressData}) => {
           gap: moderateScale(10),
           padding: moderateScale(15),
           borderRadius: 8,
-          
         }}
         ListEmptyComponent={<Text>Kayıt yok</Text>}
         renderItem={({item}) => {
