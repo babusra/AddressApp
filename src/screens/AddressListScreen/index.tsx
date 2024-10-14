@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchAddressList} from '../../reduxToolkit/features/addressSlice';
 import {useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {styles} from './styles';
 
 const AddressListScreen: React.FC = () => {
   const {t} = useTranslation();
@@ -23,8 +24,7 @@ const AddressListScreen: React.FC = () => {
     }, []),
   );
   return (
-    <View
-      style={{gap: moderateScale(30), backgroundColor: Colors.white, flex: 1}}>
+    <View style={styles.container}>
       <Header />
 
       {loading ? (
@@ -35,14 +35,7 @@ const AddressListScreen: React.FC = () => {
 
       <CustomButton
         title={t('addNewAddress')}
-        containerStyle={{
-          borderTopWidth: 1,
-          borderTopColor: Colors.primaryGrey,
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
+        containerStyle={styles.button}
         onPress={() => {
           navigation.navigate('AddNewAddressScreen');
         }}

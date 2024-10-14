@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     backgroundColor: '#F1EEF7',
-    padding: 10,
+    padding: moderateScale(10),
     borderRadius: 50,
-    width: 45,
-    height: 45,
+    width: moderateScale(45),
+    height: moderateScale(45),
   },
   titleContainer: {flex: 0.5},
   titleText: {fontWeight: 500, fontSize: 14, lineHeight: 18},

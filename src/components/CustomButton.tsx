@@ -1,6 +1,12 @@
 import React from 'react';
-import {StyleProp, Text, TouchableOpacity, View} from 'react-native';
-import {horizontalScale, verticalScale} from '../constants/Dimensions';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {horizontalScale, moderateScale, verticalScale} from '../constants/Dimensions';
 import {Colors} from '../constants/Colors';
 import {ViewStyle} from 'react-native';
 
@@ -20,28 +26,14 @@ const CustomButton: React.FC<Props> = ({
   disabled,
 }) => {
   return (
-    <View
-      style={[
-        containerStyle,
-        {
-          backgroundColor: Colors.white,
-          padding: 10,
-          alignItems: 'center',
-          elevation: 5, // for Android
-          paddingBottom:verticalScale(40)
-          
-        },
-      ]}>
+    <View style={[containerStyle, , styles.container]}>
       <TouchableOpacity
         style={[
           buttonStyle,
+          ,
           {
-            paddingHorizontal: horizontalScale(16),
-            paddingVertical: verticalScale(18),
-            alignItems: 'center',
-            width: '100%',
+            ...styles.button,
             backgroundColor: disabled ? Colors.primaryGrey : Colors.buttonGreen,
-            borderRadius: 6,
             opacity: disabled ? 0.6 : 1,
           },
         ]}
@@ -60,3 +52,20 @@ const CustomButton: React.FC<Props> = ({
 };
 
 export default CustomButton;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+    padding: moderateScale(10),
+    alignItems: 'center',
+    elevation: 5,
+    paddingBottom: verticalScale(40),
+  },
+  button: {
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(18),
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: 6,
+  },
+});
