@@ -17,3 +17,13 @@ export const postAddress = async (addressData: any) => {
     throw error;
   }
 };
+
+export const deleteAddress = async (addressId: string) => {
+  try {
+    const response = await apiClient.delete(`/addressList/${addressId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
