@@ -8,8 +8,13 @@
     "district":"District",
     "addressDetail":"Address Detail",
     "save":"Save",
+    "delete":"Delete",
     "successAddressDesc":"Your address has been saved successfully!",
-    "errorDes":"field cannot be left blank"
+    "errorDes":"field cannot be left blank",
+    "noRecord":"No Record Found",
+    "deleteConfirmationTitle": "Are you sure you want to delete?",
+    "cancel": "Cancel",
+    "yes": "Yes"
 
 
 

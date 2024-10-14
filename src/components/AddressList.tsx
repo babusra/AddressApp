@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AddressItem from './AddressItem';
 import {
   horizontalScale,
@@ -9,24 +9,32 @@ import {
 import {Colors} from '../constants/Colors';
 import {ItemSeparator} from './ItemSeparator';
 import {useTranslation} from 'react-i18next';
+import {SwipeListView} from 'react-native-swipe-list-view';
 
 interface Props {
   addressData: any[];
+  onDelete?: any;
 }
 
-const AddressList: React.FC<Props> = ({addressData}) => {
+const AddressList: React.FC<Props> = ({addressData, onDelete}) => {
   const {t} = useTranslation();
+  const renderHiddenItem = (data: {item: {id: any}}, rowMap: any) => (
+    <View style={styles.rowBack}>
+      <TouchableOpacity
+        style={[styles.backRightBtn, styles.backRightBtnRight]}
+        onPress={() => onDelete(data.item.id)}>
+        <Text style={styles.backTextWhite}>{t('delete')}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
-    <View style={styles.container}>
+    <View style={{}}>
       <Text style={styles.title}>{t('registeredAddresses')}</Text>
-      <FlatList
+      <SwipeListView
         data={addressData}
-        ItemSeparatorComponent={ItemSeparator}
-        contentContainerStyle={styles.listContainer}
-        ListEmptyComponent={<Text>Kayıt yok</Text>}
-        renderItem={({item}) => {
-          return (
+        renderItem={({item}) => (
+          <View style={styles.rowFront}>
             <AddressItem
               address={{
                 id: item?.id,
@@ -36,9 +44,15 @@ const AddressList: React.FC<Props> = ({addressData}) => {
                 addressDetail: item?.addressDetail,
               }}
             />
-          );
-        }}
+          </View>
+        )}
+        renderHiddenItem={renderHiddenItem}
+        rightOpenValue={-75}
+        disableRightSwipe
         keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        ItemSeparatorComponent={ItemSeparator}
+        ListEmptyComponent={<Text>{t('noRecord')}</Text>}
       />
     </View>
   );
@@ -52,8 +66,38 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.primaryGrey,
     gap: moderateScale(10),
-    padding: moderateScale(15),
+    padding: moderateScale(10),
     borderRadius: 8,
   },
   title: {paddingBottom: verticalScale(15)},
+
+  rowFront: {
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    height: 60,
+    paddingHorizontal: horizontalScale(15),
+  },
+  rowBack: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingRight: 15,
+  },
+  backRightBtn: {
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: 'red',
+    right: 0,
+  },
+  backTextWhite: {
+    color: '#FFF',
+  },
 });

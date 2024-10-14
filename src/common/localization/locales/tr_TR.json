@@ -8,8 +8,14 @@
     "district":"İlçe",
     "addressDetail":"Adres Detayı",
     "save":"Kaydet",
+    "delete":"Sil",
     "successAddressDesc":"Adresin başarıyla kaydedildi!",
-    "errorDes":"alanı boş bırakılamaz"
+    "errorDes":"alanı boş bırakılamaz",
+    "noRecord":"Kayıt Bulunamadı",
+    "deleteConfirmationTitle": "Silmek istediğinize emin misiniz?",
+    "cancel": "İptal",
+     "yes": "Evet"
+
 
 
 }
