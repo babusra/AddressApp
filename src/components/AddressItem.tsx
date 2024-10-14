@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     height: moderateScale(45),
   },
   titleContainer: {flex: 0.5},
-  titleText: {fontWeight: 500, fontSize: 14, lineHeight: 18},
+  titleText: { fontSize: 14, lineHeight: 18},
   cityContainer: {
     flexDirection: 'row',
     flex: 1,
